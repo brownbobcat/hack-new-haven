@@ -13,8 +13,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class TenderProposal {
     @Id
     private String id;
-    private String tenderId;  // The ID of the tender being applied for
-    private String companyCode; // The company applying
-    private String proposalFilename; // The stored filename of the PDF proposal
-    private String status; // "Pending", "Reviewed", "Awarded"
+    private String tenderId;
+    private String companyName;
+    private String proposalTitle;
+    private String proposalContent;
+    private double budget;
+    private String timeline;
+    private String status; // "Draft", "Pending", "Evaluated", "Awarded"
+    private Integer aiScore; // Can be null for drafts
 }
