@@ -3,7 +3,6 @@ package gov.transparenSee.TransparenSee.service;
 import gov.transparenSee.TransparenSee.models.TenderProposal;
 import gov.transparenSee.TransparenSee.repository.TenderProposalRepository;
 import org.springframework.stereotype.Service;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,21 +13,26 @@ public class TenderProposalService {
         this.tenderProposalRepository = tenderProposalRepository;
     }
 
-    public TenderProposal submitProposal(TenderProposal proposal) {
-        proposal.setStatus("Pending");
-        proposal.setAiScore(null);
+    // Save Proposal as Draft
+    public TenderProposal saveProposalDraft(TenderProposal proposal) {
+        proposal.setStatus("Draft"); // Mark as draft
+        proposal.setAiScore(null); // AI score not needed yet
         return tenderProposalRepository.save(proposal);
     }
 
-    public TenderProposal updateProposalScore(String proposalId, int aiScore) {
+    // Finalize and Submit Proposal
+    public TenderProposal submitProposal(String proposalId) {
         Optional<TenderProposal> proposalOptional = tenderProposalRepository.findById(proposalId);
         if (proposalOptional.isEmpty()) {
             throw new RuntimeException("Proposal not found");
         }
 
         TenderProposal proposal = proposalOptional.get();
-        proposal.setAiScore(aiScore);
-        proposal.setStatus("Evaluated");
+        if (!"Draft".equals(proposal.getStatus())) {
+            throw new RuntimeException("Proposal is already submitted.");
+        }
+
+        proposal.setStatus("Pending"); // Mark as officially submitted
         return tenderProposalRepository.save(proposal);
     }
 }

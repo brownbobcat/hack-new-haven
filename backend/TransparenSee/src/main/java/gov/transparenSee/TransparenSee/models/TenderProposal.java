@@ -19,6 +19,6 @@ public class TenderProposal {
     private String proposalContent;
     private double budget;
     private String timeline;
-    private String status;
-    private Integer aiScore;
+    private String status; // "Draft", "Pending", "Evaluated", "Awarded"
+    private Integer aiScore; // Can be null for drafts
 }

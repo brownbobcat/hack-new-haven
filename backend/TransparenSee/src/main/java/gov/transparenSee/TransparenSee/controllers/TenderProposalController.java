@@ -4,9 +4,6 @@ import gov.transparenSee.TransparenSee.models.TenderProposal;
 import gov.transparenSee.TransparenSee.service.TenderProposalService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/api/v1/tender-proposal")
 @CrossOrigin(origins = "http://localhost:3000")
@@ -17,13 +14,15 @@ public class TenderProposalController {
         this.tenderProposalService = tenderProposalService;
     }
 
-    @PostMapping("/submit")
-    public TenderProposal submitProposal(@RequestBody TenderProposal proposal) {
-        return tenderProposalService.submitProposal(proposal);
+    // Save Proposal as Draft
+    @PostMapping("/save-draft")
+    public TenderProposal saveProposalDraft(@RequestBody TenderProposal proposal) {
+        return tenderProposalService.saveProposalDraft(proposal);
     }
 
-    @PutMapping("/update-score/{proposalId}")
-    public TenderProposal updateProposalScore(@PathVariable String proposalId, @RequestParam int aiScore) {
-        return tenderProposalService.updateProposalScore(proposalId, aiScore);
+    // Finalize and Submit Proposal
+    @PutMapping("/submit/{proposalId}")
+    public TenderProposal submitProposal(@PathVariable String proposalId) {
+        return tenderProposalService.submitProposal(proposalId);
     }
 }

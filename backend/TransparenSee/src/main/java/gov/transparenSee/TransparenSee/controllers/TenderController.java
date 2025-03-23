@@ -20,4 +20,9 @@ public class TenderController {
     public Tender createTender(@RequestBody Tender tender) {
         return tenderService.createTender(tender);
     }
+
+    @GetMapping("/all")
+    public List<Tender> getAllTenders() {
+        return tenderService.getAllTenders();
+    }
 }

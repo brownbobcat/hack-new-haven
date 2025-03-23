@@ -32,4 +32,8 @@ public class TenderService {
             }
         }
     }
+
+    public List<Tender> getAllTenders() {
+        return tenderRepository.findAll();
+    }
 }
