@@ -10,9 +10,10 @@ import Link from "next/link";
 
 export default function CompanyDashboardPage() {
   const { data: session, status } = useSession();
+  console.log("session", session);
   const router = useRouter();
   const [companyData, setCompanyData] = useState<Company | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  // const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -33,13 +34,13 @@ export default function CompanyDashboardPage() {
       setError("Failed to load company data. Please try again later.");
       console.error("Error fetching company data:", err);
     } finally {
-      setLoading(false);
+      // setLoading(false);
     }
   };
 
-  if (status === "loading" || loading) {
-    return <div className="container mx-auto py-8">Loading...</div>;
-  }
+  // if (status === "loading" || loading) {
+  //   return <div className="container mx-auto py-8">Loading...</div>;
+  // }
 
   return (
     <main className="container mx-auto py-8">

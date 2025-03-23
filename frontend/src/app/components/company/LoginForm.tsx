@@ -1,4 +1,3 @@
-// src/components/company/LoginForm.tsx
 "use client";
 
 import { useState, FormEvent } from "react";
@@ -7,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 export default function CompanyLoginForm() {
   const router = useRouter();
-  const [email, setEmail] = useState<string>("");
+  const [companyCode, setCompanyCode] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -15,23 +14,26 @@ export default function CompanyLoginForm() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setError("");
 
     try {
+      // Use NextAuth's signIn method directly
+      // This will trigger the authorize function with our directLogin
       const result = await signIn("credentials", {
-        email,
+        companyCode,
         password,
         redirect: false,
         callbackUrl: "/company/dashboard",
       });
 
       if (result?.error) {
-        setError("Invalid email or password");
+        setError("Invalid company code or password");
       } else {
         router.push("/company/dashboard");
-        router.refresh(); // Refresh to update session
+        router.refresh();
       }
     } catch (error) {
-      console.log(error);
+      console.error("Login error:", error);
       setError("An error occurred during login");
     } finally {
       setIsLoading(false);
@@ -44,17 +46,17 @@ export default function CompanyLoginForm() {
 
       <div>
         <label
-          htmlFor="email"
+          htmlFor="companyCode"
           className="block text-sm font-medium text-gray-700"
         >
-          Email
+          Company Code
         </label>
         <input
-          id="email"
-          type="email"
+          id="companyCode"
+          type="text"
           required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={companyCode}
+          onChange={(e) => setCompanyCode(e.target.value)}
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
         />
       </div>
