@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/tender")
+@RequestMapping("/api/v1/tender")
+@CrossOrigin(origins = "http://localhost:3000")
 public class TenderController {
     private final TenderService tenderService;
 
@@ -18,10 +19,5 @@ public class TenderController {
     @PostMapping("/create")
     public Tender createTender(@RequestBody Tender tender) {
         return tenderService.createTender(tender);
-    }
-
-    @GetMapping
-    public List<Tender> getAllTenders() {
-        return tenderService.getAllTenders();
     }
 }

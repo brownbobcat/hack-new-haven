@@ -4,8 +4,10 @@ import gov.transparenSee.TransparenSee.models.Company;
 import gov.transparenSee.TransparenSee.repository.CompanyRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/company")
 public class CompanyController {
@@ -51,4 +53,11 @@ public class CompanyController {
     public Iterable<Company> getAllCompanies() {
         return companyRepository.findAll();
     }
+
+    @PostMapping("/generate-sample")
+    public List<Company> generateSampleCompanies() {
+        List<Company> sampleCompanies = Company.generateSampleCompanies();
+        return companyRepository.saveAll(sampleCompanies);
+    }
+
 }
