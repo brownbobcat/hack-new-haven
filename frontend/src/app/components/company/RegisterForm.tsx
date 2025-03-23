@@ -9,14 +9,18 @@ import { registerCompany } from "@/services/api";
 export default function CompanyRegisterForm() {
   const router = useRouter();
   const [formData, setFormData] = useState<RegisterFormData>({
-    email: "",
-    password: "",
     companyName: "",
-    location: "",
-    registrationNumber: "",
-    field: "",
+    companyAddress: "",
+    companyCity: "",
+    companyStateOrProvince: "",
+    companyEmail: "",
+    password: "",
+    companyPhone: "",
+    companyCode: "",
+    natureOfBusiness: "",
     companySize: "",
   });
+  console.log("formData", formData);
   const [error, setError] = useState<string>("");
 
   const handleChange = (
@@ -49,17 +53,17 @@ export default function CompanyRegisterForm() {
 
       <div>
         <label
-          htmlFor="email"
+          htmlFor="companyEmail"
           className="block text-sm font-medium text-gray-700"
         >
           Email
         </label>
         <input
-          id="email"
-          name="email"
+          id="companyEmail"
+          name="companyEmail"
           type="email"
           required
-          value={formData.email}
+          value={formData.companyEmail}
           onChange={handleChange}
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
         />
@@ -103,17 +107,17 @@ export default function CompanyRegisterForm() {
 
       <div>
         <label
-          htmlFor="location"
+          htmlFor="companyAddress"
           className="block text-sm font-medium text-gray-700"
         >
-          Location
+          Address
         </label>
         <input
-          id="location"
-          name="location"
+          id="companyAddress"
+          name="companyAddress"
           type="text"
           required
-          value={formData.location}
+          value={formData.companyAddress}
           onChange={handleChange}
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
         />
@@ -121,17 +125,17 @@ export default function CompanyRegisterForm() {
 
       <div>
         <label
-          htmlFor="registrationNumber"
+          htmlFor="companyCity"
           className="block text-sm font-medium text-gray-700"
         >
-          Registration Number
+          City
         </label>
         <input
-          id="registrationNumber"
-          name="registrationNumber"
+          id="companyCity"
+          name="companyCity"
           type="text"
           required
-          value={formData.registrationNumber}
+          value={formData.companyCity}
           onChange={handleChange}
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
         />
@@ -139,17 +143,71 @@ export default function CompanyRegisterForm() {
 
       <div>
         <label
-          htmlFor="field"
+          htmlFor="companyStateOrProvince"
           className="block text-sm font-medium text-gray-700"
         >
-          Field/Area
+          State/Province
         </label>
         <input
-          id="field"
-          name="field"
+          id="companyStateOrProvince"
+          name="companyStateOrProvince"
           type="text"
           required
-          value={formData.field}
+          value={formData.companyStateOrProvince}
+          onChange={handleChange}
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+        />
+      </div>
+
+      <div>
+        <label
+          htmlFor="companyPhone"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Phone
+        </label>
+        <input
+          id="companyPhone"
+          name="companyPhone"
+          type="tel"
+          required
+          value={formData.companyPhone}
+          onChange={handleChange}
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+        />
+      </div>
+
+      <div>
+        <label
+          htmlFor="companyCode"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Company Code
+        </label>
+        <input
+          id="companyCode"
+          name="companyCode"
+          type="text"
+          required
+          value={formData.companyCode}
+          onChange={handleChange}
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+        />
+      </div>
+
+      <div>
+        <label
+          htmlFor="natureOfBusiness"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Nature of Business
+        </label>
+        <input
+          id="natureOfBusiness"
+          name="natureOfBusiness"
+          type="text"
+          required
+          value={formData.natureOfBusiness}
           onChange={handleChange}
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
         />
@@ -171,11 +229,9 @@ export default function CompanyRegisterForm() {
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
         >
           <option value="">Select company size</option>
-          <option value="1-10">1-10 employees</option>
-          <option value="11-50">11-50 employees</option>
-          <option value="51-200">51-200 employees</option>
-          <option value="201-500">201-500 employees</option>
-          <option value="501+">501+ employees</option>
+          <option value="Small">Small (0-50 employees)</option>
+          <option value="Medium">Medium (51-200 employees)</option>
+          <option value="Large">Large (201+ employees)</option>
         </select>
       </div>
 

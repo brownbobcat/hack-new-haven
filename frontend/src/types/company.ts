@@ -19,11 +19,14 @@ export interface AuthResponse {
 }
 
 export interface RegisterFormData {
-  email: string;
+  companyEmail: string;
   password: string;
   companyName: string;
-  location: string;
-  registrationNumber: string;
-  field: string;
+  companyCity: string;
+  companyStateOrProvince: string;
+  companyAddress: string;
+  companyCode: string;
+  companyPhone: string;
+  natureOfBusiness: string;
   companySize: string;
 }
